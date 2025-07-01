@@ -33,10 +33,8 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-
     sizes: [String],
     reviews: [reviewSchema],
-
     category: {
       type: String,
       required: true,
