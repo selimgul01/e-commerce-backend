@@ -40,13 +40,41 @@ const getUserCart = async (req, res) => {
   const userId = req.user._id;
   const cart = await Cart.findOne({ user: userId }).populate("items.product");
   if (!cart) {
-    return res.status(200).json({ items: [] }); // boş sepet
+    return res.status(200).json({ items: [] });
   }
 
   res.status(200).json(cart);
 };
 
+const removeFromCart = async (req, res) => {
+  const userId = req.user._id;
+  const { productId, size } = req.body;
+
+  try {
+    const cart = await Cart.findOne({ user: userId });
+    if (!cart) return res.status(400).json({ message: "Sepet Bulunamadı" });
+    cart.items = cart.items.filter(
+      (item) => item.product.toString() !== productId || item.size !== size
+    );
+    await cart.save();
+    await cart.populate("items.product")
+    res.status(200).json(cart);
+  } catch (error) {}
+};
+
+const clearCart = async (req, res) => {
+  const userId = req.user._id;
+  try {
+    await Cart.findOneAndDelete({ user: userId });
+    res.status(200).json({ message: "Sepet başarıyla temizlendi" });
+  } catch (error) {
+    res.status(500).json({ message: "Sepeti temizleme hatası", error });
+  }
+};
+
 module.exports = {
   addToCart,
   getUserCart,
+  clearCart,
+  removeFromCart
 };
