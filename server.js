@@ -5,6 +5,8 @@ const cors = require("cors");
 const authRoutes = require("./routes/authRoute");
 const productRoute = require("./routes/productRoute")
 const cartRoutes = require("./routes/cartRoute");
+const reviewRoute = require("./routes/reviewRoute")
+const orderRoute = require("./routes/orderRoutes")
 dotenv.config();
 
 const app = express();
@@ -15,6 +17,9 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoute)
 app.use("/api/cart", cartRoutes);
+app.use("/api/reviews",reviewRoute );
+app.use("/api/orders",orderRoute );
+
 
 const connectDB = async () => {
     try {

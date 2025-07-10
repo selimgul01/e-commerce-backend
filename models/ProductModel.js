@@ -33,14 +33,21 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+     discountprice: {
+      type: Number,
+    },
     sizes: [String],
-    reviews: [reviewSchema],
     category: {
       type: String,
       required: true,
     },
-    discountprice: {
+     averageRating: {
       type: Number,
+      default: 0,
+    },
+     numReviews: {
+      type: Number,
+      default: 0,
     },
     stock: {
       type: Number,
