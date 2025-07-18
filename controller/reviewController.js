@@ -7,7 +7,7 @@ const createReview = async (req, res) => {
   try {
     const existingReview = await ReviewModel.findOne({
       product: productId,
-      user: req.user._id,
+      user: req.user._id, 
     });
 
     if (existingReview)

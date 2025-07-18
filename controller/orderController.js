@@ -8,6 +8,7 @@ const createOrder= async(req,res)=>{
     const userId = req.user._id
     const {shippingAddress} = req.body
 
+
     try {
         
         const cart = await Cart.findOne({user: userId}).populate("items.product")
@@ -30,6 +31,12 @@ const createOrder= async(req,res)=>{
 
         cart.items = [];
         await cart.save();
+
+        res.status(201).json({ 
+            order: newOrder, 
+            message: "Sipariş başarıyla oluşturuldu!" 
+        });
+
 
     } catch (error) {
         console.error("Sipariş hatası:", error);
