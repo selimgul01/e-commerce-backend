@@ -4,6 +4,7 @@ const Product = require("../models/ProductModel");
 const createReview = async (req, res) => {
   const { productId, rating, comment } = req.body;
 
+
   try {
     const existingReview = await ReviewModel.findOne({
       product: productId,
@@ -33,9 +34,12 @@ const createReview = async (req, res) => {
       numReviews: reviews.length,
     });
 
-    res.status(201).json(newReview);
+    res.status(201).json({newReview, message:"Yorum Başarıyla Eklendi" });
   } catch (error) {
-    res.status(500).json({ message: "Yorum eklenirken hata oluştu." });
+    res.status(500).json({
+    message: "Yorum eklenirken hata oluştu.",
+    error: error.message,
+  });
   }
 };
 
