@@ -46,7 +46,7 @@ const productSchema = new mongoose.Schema(
       default: 0,
     },
      numReviews: {
-      type: Number,
+      type: Number, 
       default: 0,
     },
     stock: {

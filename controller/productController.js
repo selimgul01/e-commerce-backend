@@ -32,7 +32,7 @@ const createProduct = async (req, res) => {
   }
 };
 
-module.exports = {
+module.exports = { 
   createProduct,
   getProductById,
   getAllProducts,

@@ -20,12 +20,13 @@ const createReview = async (req, res) => {
       user: req.user._id,
       product: productId,
       rating,
-      comment,
+      comment, 
     });
 
     await newReview.save();
 
     const reviews = await ReviewModel.find({ product: productId });
+    
     const avgRating =
       reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length;
 
