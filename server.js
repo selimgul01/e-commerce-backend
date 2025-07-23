@@ -7,6 +7,7 @@ const productRoute = require("./routes/productRoute")
 const cartRoutes = require("./routes/cartRoute");
 const reviewRoute = require("./routes/reviewRoute")
 const orderRoute = require("./routes/orderRoutes")
+const favoriteRoute = require("./routes/favoriteRoute")
 dotenv.config();
 
 const app = express();
@@ -19,6 +20,7 @@ app.use("/api/products", productRoute)
 app.use("/api/cart", cartRoutes);
 app.use("/api/reviews",reviewRoute );
 app.use("/api/orders",orderRoute );
+app.use("/api/favorites",favoriteRoute );
 
 
 const connectDB = async () => {
