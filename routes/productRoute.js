@@ -8,4 +8,4 @@ router.get('/', getAllProducts)
 router.get('/:id', getProductById)
 router.post('/', createProduct) // Geçici olarak public (ileride auth ekleyeceğiz)
 
-module.exports = router;
+module.exports = router; 

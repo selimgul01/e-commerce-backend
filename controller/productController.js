@@ -2,13 +2,28 @@ const Product = require("../models/ProductModel");
 
 const getAllProducts = async (req,res) => {
   try {
+
+    // const { search, category } = req.body
+
+    // let filter = {}
+
+    // if (search) {
+    //   filter.$or = [
+    //     { title: { $regex: search, $options: "i" } },
+    //     { description: { $regex: search, $options: "i" } },
+    //   ]
+    // }
+
+    // if (category) {
+    //   filter.category = category;
+    // }
+
+
     const products = await Product.find().sort({ createdAt: -1 });
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: "Ürünler alınamadı", error: error.message });
-      
-      
-  }
+  } 
 };
 
 const getProductById = async (req, res) => {

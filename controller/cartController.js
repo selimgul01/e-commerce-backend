@@ -29,7 +29,7 @@ const addToCart = async (req, res) => {
     }
 
     await cart.save();
-    res.status(200).json(cart);
+    res.status(200).json({cart, message:"Ürün Sepete Eklendi"});
   } catch (error) {
     console.error("Cart Error:", error.message);
     res.status(500).json({ message: "Sepet güncellenemedi" });
@@ -48,18 +48,20 @@ const getUserCart = async (req, res) => {
 
 const removeFromCart = async (req, res) => {
   const userId = req.user._id;
-  const { productId, size } = req.body;
+  const { productId } = req.body
+  console.log("removeFromCart productId:",productId)
 
   try {
     const cart = await Cart.findOne({ user: userId });
     if (!cart) return res.status(400).json({ message: "Sepet Bulunamadı" });
-    cart.items = cart.items.filter(
-      (item) => item.product.toString() !== productId || item.size !== size
-    );
+    cart.items = cart.items.filter( (item) => item._id.toString() !== productId )
+      
     await cart.save();
     await cart.populate("items.product")
-    res.status(200).json(cart);
-  } catch (error) {}
+    res.status(200).json({cart, message: "Ürün Sepetten Çıkarıldı"});
+  } catch (error) {
+    res.status(500).json({ message: "Ürün silme hatası", error });
+  }
 };
 
 const clearCart = async (req, res) => {
