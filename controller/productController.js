@@ -3,23 +3,22 @@ const Product = require("../models/ProductModel");
 const getAllProducts = async (req,res) => {
   try {
 
-    // const { search, category } = req.body
+    const { search, category } = req.query
+    let filter = {}
 
-    // let filter = {}
+    if (search) {
+      filter.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+      ]
+    }
 
-    // if (search) {
-    //   filter.$or = [
-    //     { title: { $regex: search, $options: "i" } },
-    //     { description: { $regex: search, $options: "i" } },
-    //   ]
-    // }
-
-    // if (category) {
-    //   filter.category = category;
-    // }
+    if (category) {
+      filter.category = category;
+    }
 
 
-    const products = await Product.find().sort({ createdAt: -1 });
+    const products = await Product.find(filter).sort({ createdAt: -1 });
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: "Ürünler alınamadı", error: error.message });
