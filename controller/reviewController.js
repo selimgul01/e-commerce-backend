@@ -48,7 +48,6 @@ const getAllReviewsByProduct = async (req,res) =>{
 
   const {productId} = req.params
 
-  console.log("productId:",productId)
 
   try {
     const reviews = await ReviewModel.find({product: productId}).populate("user","username").sort({createdAt: -1})
